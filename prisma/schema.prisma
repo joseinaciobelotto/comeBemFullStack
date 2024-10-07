@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")  
+}
+
+// Modelo para a tabela `clientes`
+model clientes {
+  id_cliente Int    @id @default(autoincrement())
+  nome       String @db.VarChar(45)
+  senha      String @db.VarChar(45)
+  cargo      Cargo
+  reservas_mesas reservas_mesas[]
+  feedbacks      feedbacks[]
+}
+
+// Modelo para a tabela `mesas`
+model mesas {
+  id_mesas  Int    @id @default(autoincrement())
+  ocuapada  Int?
+  reservas_mesas reservas_mesas[]
+}
+
+// Modelo para a tabela `reservas_mesas`
+model reservas_mesas {
+  id_reservas_mesas Int @id @default(autoincrement())
+  clientes_id_cliente Int
+  mesas_id_mesas Int
+  clientes clientes @relation(fields: [clientes_id_cliente], references: [id_cliente])
+  mesas mesas @relation(fields: [mesas_id_mesas], references: [id_mesas])
+
+  @@unique([clientes_id_cliente, mesas_id_mesas])
+}
+
+// Modelo para a tabela `feedbacks`
+model feedbacks {
+  clientes_id_cliente Int @id
+  menssagem String @db.VarChar(200)
+  clientes clientes @relation(fields: [clientes_id_cliente], references: [id_cliente])
+}
+
+enum Cargo {
+  Cliente
+  Garcom
+  Gerente
+}
