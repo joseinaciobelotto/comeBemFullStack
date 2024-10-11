@@ -1,15 +1,18 @@
 import Image from "next/image";
 import Link from 'next/link';
 import React from "react";
-import Mesas from '../../components/mesas'; 
-
+import AdicionarMesas from '../../components/AdicionarMesas'; 
+import MostrarMesas from '../../components/MostrarMesas'; 
 
 const HomePage = () => {
   return (
     
     <div>
       <h1>Bem-vindo ao sistema de gerenciamento de mesas</h1>
-      <Mesas />
+      <AdicionarMesas/>
+      <hr>
+      </hr>
+      <MostrarMesas/>
     </div>
   );
 }
