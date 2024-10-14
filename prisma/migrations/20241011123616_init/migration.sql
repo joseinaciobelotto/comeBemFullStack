@@ -41,7 +41,7 @@ CREATE TABLE `clientes` (
 -- CreateTable
 CREATE TABLE `mesas` (
     `id_mesas` INTEGER NOT NULL AUTO_INCREMENT,
-    `ocuapada` INTEGER NULL,
+    `ocupada` INTEGER NULL,
 
     PRIMARY KEY (`id_mesas`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
