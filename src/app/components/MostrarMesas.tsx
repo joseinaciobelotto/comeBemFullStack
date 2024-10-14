@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'; // Importa React, useState e
 
 interface Mesa {
   id_mesas: number;
-  ocupada: number;
+  ocuapada: number;
 }
 const MostrarMesas: React.FC = () => {
   const [mesas, setMesas] = useState<Mesa[]>([]); // Define o tipo correto para mesas
@@ -40,7 +40,7 @@ const MostrarMesas: React.FC = () => {
               key={mesa.id_mesas}
               style={{
                 ...cellStyle,
-                backgroundColor: mesa.ocupada == 1 ? 'red' : 'green',
+                backgroundColor: mesa.ocuapada ===  2 ? 'yellow'  : mesa.ocuapada === 1 ?  'red' : 'green',
               }}
             >
               Mesa {mesa.id_mesas}

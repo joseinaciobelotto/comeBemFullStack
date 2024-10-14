@@ -26,7 +26,7 @@ model clientes {
 // Modelo para a tabela `mesas`
 model mesas {
   id_mesas  Int    @id @default(autoincrement())
-  ocuapada  Int?
+  ocupada  Int?
   reservas_mesas reservas_mesas[]
 }
 
