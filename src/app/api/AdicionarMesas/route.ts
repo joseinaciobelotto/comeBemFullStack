@@ -8,18 +8,18 @@ export async function POST(req: NextRequest) {
     // Extrai os dados do corpo da requisição
     const body = await req.json();
 
-    const { id_mesas, ocuapada } = body; // Corrigido para 'ocuapada'
+    const { id_mesas, ocupada } = body; // Corrigido para 'ocupada'
 
     // Verifica se os campos necessários estão presentes
-    if (!id_mesas || ocuapada === undefined) {
-      return NextResponse.json({ error: 'Os campos id_mesas e ocuapada são obrigatórios.' }, { status: 400 });
+    if (!id_mesas || ocupada === undefined) {
+      return NextResponse.json({ error: 'Os campos id_mesas e ocupada são obrigatórios.' }, { status: 400 });
     }
 
     // Cria uma nova mesa no banco de dados
     const novaMesa = await prisma.mesas.create({
       data: {
         id_mesas,
-        ocuapada, // Utilizando 'ocuapada' corretamente
+        ocupada, // Utilizando 'ocupada' corretamente
       },
     });
 

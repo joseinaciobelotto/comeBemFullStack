@@ -1,51 +1,43 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")  
+  url      = env("DATABASE_URL")
 }
 
-// Modelo para a tabela `clientes`
 model clientes {
-  id_cliente Int    @id @default(autoincrement())
-  nome       String @db.VarChar(45)
-  senha      String @db.VarChar(45)
-  cargo      Cargo
+  id_cliente     Int              @id @default(autoincrement())
+  nome           String           @db.VarChar(45)
+  senha          String           @db.VarChar(45)
+  cargo          Cargo
+  correio        String           @db.VarChar(45)
+  feedbacks      feedbacks?
   reservas_mesas reservas_mesas[]
-  feedbacks      feedbacks[]
 }
 
-// Modelo para a tabela `mesas`
 model mesas {
-  id_mesas  Int    @id @default(autoincrement())
-  ocupada  Int?
+  id_mesas       Int              @id @default(autoincrement())
+  ocupada        Int?
   reservas_mesas reservas_mesas[]
 }
 
-// Modelo para a tabela `reservas_mesas`
 model reservas_mesas {
-  id_reservas_mesas Int @id @default(autoincrement())
+  id_reservas_mesas   Int      @id @default(autoincrement())
   clientes_id_cliente Int
-  mesas_id_mesas Int
-  clientes clientes @relation(fields: [clientes_id_cliente], references: [id_cliente])
-  mesas mesas @relation(fields: [mesas_id_mesas], references: [id_mesas])
+  mesas_id_mesas      Int
+  clientes            clientes @relation(fields: [clientes_id_cliente], references: [id_cliente])
+  mesas               mesas    @relation(fields: [mesas_id_mesas], references: [id_mesas])
 
   @@unique([clientes_id_cliente, mesas_id_mesas])
+  @@index([mesas_id_mesas], map: "reservas_mesas_mesas_id_mesas_fkey")
 }
 
-// Modelo para a tabela `feedbacks`
 model feedbacks {
-  clientes_id_cliente Int @id
-  menssagem String @db.VarChar(200)
-  clientes clientes @relation(fields: [clientes_id_cliente], references: [id_cliente])
+  clientes_id_cliente Int      @id
+  menssagem           String   @db.VarChar(200)
+  clientes            clientes @relation(fields: [clientes_id_cliente], references: [id_cliente])
 }
 
 enum Cargo {

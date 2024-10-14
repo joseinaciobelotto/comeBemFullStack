@@ -16,7 +16,7 @@ const AdicionarMesas: React.FC = () => {
         },
         body: JSON.stringify({
           id_mesas: parseInt(idMesas),
-          ocuapada: ocupada, // Corrigido o nome do campo
+          ocupada: ocupada, // Corrigido o nome do campo
         }),
       });
 
