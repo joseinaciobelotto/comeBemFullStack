@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 
 
-const SECRET_KEY = 'S#g^:K#?[w/AKquh_QUATROUMDOISQUATROTRESCINCOY*m4|AQeOuj#n-[';
+const SECRET_KEY = '1234';
 
-export const GenerateToken = (userId: number) => {
+export const GenerateToken = (id: number) => {
     try{
-
-      const tokenCreated = jwt.sign({ id: userId }, SECRET_KEY, { expiresIn: '1h' });
+      console.log("sdasdasdas"+id);
+      const tokenCreated = jwt.sign({ id }, SECRET_KEY, { expiresIn: '1h' });
       return tokenCreated;
     }catch(error)
     {
@@ -18,14 +18,28 @@ export const GenerateToken = (userId: number) => {
   };
   
 
-  export const VerifyToken = (token: string) => {
+  export const VerifyToken = (token: string, id:number) => {
     try{
-
-      const tokenVerified = jwt.verify(token, SECRET_KEY);
-      return tokenVerified;
+      
+      
+      const tokenVerified = jwt.verify(token, SECRET_KEY) as {id:number};
+      
+    
+      if(tokenVerified.id == id)
+      {
+            return true;
+      }else
+      {
+  
+        return false;
+      }
+    
+    
     }catch(error)
     {
-      return NextResponse.json({ error: 'Token invalido' }, { status: 500 });
+      
+      console.error("Error during token verification:", error);
+      return NextResponse.json({ error: 'Token invalido', }, { status: 500});
 
 
     }

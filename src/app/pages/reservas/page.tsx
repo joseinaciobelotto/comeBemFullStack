@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import React from "react";
 import AdicionarMesas from '../../components/AdicionarMesas'; 
-import MostrarMesas from '../../components/MostrarMesas'; 
+import ListarMesas from '../../components/ListarMesas'; 
 
 const HomePage = () => {
   return (
@@ -12,7 +12,7 @@ const HomePage = () => {
       <AdicionarMesas/>
       <hr>
       </hr>
-      <MostrarMesas/>
+      <ListarMesas/>
     </div>
   );
 }

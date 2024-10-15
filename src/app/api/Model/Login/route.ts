@@ -9,28 +9,39 @@ export async function POST(req: NextRequest) {
   try {
  
     const clientes = await prisma.clientes.findMany();
-   // console.log(clientes)
+   
     const body = await req.json();
 
     const {  nome, senha} = body;
-    console.log("adsasd");
+    
+    let token;
+    let found = false;
         
     clientes.forEach(cliente => {
    
       if(nome == cliente.nome && senha == cliente.senha)
       {
           
-        const token = GenerateToken(cliente.id_cliente);
+        token = GenerateToken(cliente.id_cliente);
+      
+          found = true;
         
-
-        console.log(token);
         
 
       }
     });
     
-    
-      return NextResponse.json( { status: 200 , statusText: 'Cliente logado!'});
+    if(found == false)
+    {
+      return NextResponse.json( { status: 200 , statusText: 'Cliente não Cadastrado' });
+    }
+    else
+    {
+      return NextResponse.json( { status: 200 , statusText: 'Cliente logado!',token  });
+     
+    }
+  
+     
     
   
 

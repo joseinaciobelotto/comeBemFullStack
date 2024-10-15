@@ -1,4 +1,4 @@
-// src/app/components/MostrarMesas.tsx
+// src/app/components/ListarMesas.tsx
 "use client"; // Adicione esta linha
 
 import React, { useState, useEffect } from 'react'; // Importa React, useState e useEffect
@@ -7,14 +7,14 @@ interface Mesa {
   id_mesas: number;
   ocupada: number;
 }
-const MostrarMesas: React.FC = () => {
+const ListarMesas: React.FC = () => {
   const [mesas, setMesas] = useState<Mesa[]>([]); // Define o tipo correto para mesas
 
   
     // Função para buscar as mesas da API
     const fetchMesas = async () => {
       try {
-        const response = await fetch('/api/MostrarMesas');
+        const response = await fetch('/api/ListarMesas');
         if (!response.ok) {
           throw new Error('Erro ao buscar mesas');
         }
@@ -73,4 +73,4 @@ const MostrarMesas: React.FC = () => {
 
   
 
-export default MostrarMesas;
+export default ListarMesas;
