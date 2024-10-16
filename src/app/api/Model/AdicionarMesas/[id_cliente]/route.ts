@@ -6,15 +6,17 @@ import { VerifyToken } from '../../Controller/jwt';
 
 const prisma = new PrismaClient();
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest, { params }: { params: { id_cliente: number }}) {
   try {
  
     
     const body = await req.json();
     const header = await req.headers;
 
-    const { id_mesas, ocupada, id_cliente } = body;
-    const token = header.get('Authorization')
+    const { id_mesas, ocupada } = body;
+    const token = header.get('Authorization');
+    
+    const {  id_cliente } = params;
    
     if (!id_mesas || !ocupada || token === undefined) {
       return NextResponse.json({ error: 'Os campos id_mesas, ocupada e token são obrigatórios.' }, { status: 400 });

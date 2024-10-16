@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { VerifyToken } from '../../../Controller/jwt';
+import { ClientPageRoot } from 'next/dist/client/components/client-page';
 
 const prisma = new PrismaClient();
 
@@ -16,11 +17,19 @@ export async function GET(req: NextRequest, { params }: { params: { id_cliente: 
   }
 
  
-    const clientes = await prisma.clientes.findMany();
+    const garcons = await prisma.clientes.findMany({
+      
+      where:
+      {
+        cargo : "Garcom"
+      }
+    
+    }    
+    )
     // console.log(clientes)
      
      
-      
+     
     
     const header = req.headers;
 
@@ -33,10 +42,15 @@ export async function GET(req: NextRequest, { params }: { params: { id_cliente: 
 
     if(token != null)
       {
-        if(VerifyToken(token, id_cliente) == false) 
+        if(VerifyToken(token, id_cliente) == true) 
           { 
        
-        return NextResponse.json(clientes, { status: 201 });
+                
+        
+           
+
+
+        return NextResponse.json(garcons, { status: 201 });
                
       }}
   else

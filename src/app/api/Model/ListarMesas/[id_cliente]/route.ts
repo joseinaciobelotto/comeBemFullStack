@@ -28,7 +28,7 @@ export async function GET(req: NextRequest, { params }: { params: { id_cliente: 
 
     if(token != null)
       {
-        if(VerifyToken(token, id_cliente) == false) 
+        if(VerifyToken(token, id_cliente) == true) 
           { 
           
         return NextResponse.json(mesas, { status: 201 });

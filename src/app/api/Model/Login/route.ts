@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     let token;
     let found = false;
         
-    clientes.forEach(cliente => {
+    clientes.forEach(cliente=> {
    
       if(nome == cliente.nome && senha == cliente.senha)
       {
